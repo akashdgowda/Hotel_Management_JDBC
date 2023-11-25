@@ -31,7 +31,6 @@ HOTEL MANAGEMENT SYSTEM
 0. Exit
 Choose an option:
 
-3. Choose an option by entering the corresponding number.
 
 ## Features
 
@@ -53,6 +52,8 @@ CREATE TABLE reservations (
  contact_number VARCHAR(15) NOT NULL,
  reservation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
 Feel free to adapt the database schema according to your requirements.
 
 This project uses the MySQL database for data storage.
