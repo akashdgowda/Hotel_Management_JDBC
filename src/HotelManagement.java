@@ -42,6 +42,12 @@ public class HotelManagement {
                     case 5:
                         deleteReservation(connection, in, statement);
                         break;
+                    case 0:
+                        exit();
+                        in.close();
+                        return;
+                    default:
+                        System.out.println("Invalid choice. Try again.");
                 }
             }
         }catch (SQLException e){
@@ -50,6 +56,18 @@ public class HotelManagement {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private static void exit() throws InterruptedException {
+        System.out.println("Exiting System ");
+        int i = 5;
+        while(i != 0){
+            System.out.print(".");
+            Thread.sleep(450);
+            i--;
+        }
+        System.out.println();
+        System.out.println("Thank You For Using Reservation System!!!");
     }
 
     private static void deleteReservation(Connection connection, Scanner in, Statement statement) {
