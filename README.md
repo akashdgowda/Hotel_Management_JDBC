@@ -52,7 +52,7 @@ CREATE TABLE reservations (
  contact_number VARCHAR(15) NOT NULL,
  reservation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
+```
 
 Feel free to adapt the database schema according to your requirements.
 
