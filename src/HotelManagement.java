@@ -36,6 +36,9 @@ public class HotelManagement {
                     case 3:
                         getRoomNumber(connection, in, statement);
                         break;
+                    case 4:
+                        updateReservation(connection, in, statement);
+                        break;
                 }
             }
         }catch (SQLException e){
@@ -44,6 +47,36 @@ public class HotelManagement {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private static void updateReservation(Connection connection, Scanner in, Statement statement) {
+        try{
+            System.out.print("Enter reservation ID to update: ");
+            int reservationID = in.nextInt();
+            in.nextLine(); // Consume newLine character
+            if(!reservationExists(connection, reservationID ,statement)){
+                System.out.println("Reservation not found for the given ID");
+            }
+            System.out.println("Enter new guest name: ");
+            String newGuestName = in.nextLine();
+            System.out.println("Enter new room number: ");
+            int newRoomNumber = in.nextInt();
+            System.out.println("Enter new contact number: ");
+            String newContactNumber = in.next();
+            String query = "UPDATE reservations SET guest_name = '" + newGuestName + "' , " +
+                    "room_number = " +newRoomNumber+
+                    ", contact_number = '"+newContactNumber+"' " +
+                    "WHERE reservation_id = "+ reservationID;
+
+            int affectRows = statement.executeUpdate(query);
+            if(affectRows > 0){
+                System.out.println("Reservation Updated Successfully");
+            }else{
+                System.out.println("Reservation Update Failed");
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void getRoomNumber(Connection connection, Scanner in, Statement statement) {
