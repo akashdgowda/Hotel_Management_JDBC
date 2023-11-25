@@ -72,6 +72,16 @@ public class HotelManagement {
         }
     }
 
+    private static boolean reservationExists(Connection connection, int reservationID, Statement statement) {
+        String query = "SELECT reservation_id FROM reservations WHERE reservation_id = "+reservationID;
+        try {
+            ResultSet resultSet = statement.executeQuery(query);
+            return resultSet.next(); // if present , then reservation exists
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 
 
     private static void updateReservation(Connection connection, Scanner in, Statement statement) {
