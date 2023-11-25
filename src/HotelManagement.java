@@ -39,6 +39,9 @@ public class HotelManagement {
                     case 4:
                         updateReservation(connection, in, statement);
                         break;
+                    case 5:
+                        deleteReservation(connection, in, statement);
+                        break;
                 }
             }
         }catch (SQLException e){
@@ -49,6 +52,28 @@ public class HotelManagement {
 
     }
 
+    private static void deleteReservation(Connection connection, Scanner in, Statement statement) {
+        try{
+            System.out.print("Enter reservation ID: ");
+            int reservationID = in.nextInt();
+            if(!reservationExists(connection, reservationID ,statement)){
+                System.out.println("Reservation not found for the given ID");
+                return;
+            }
+            String query = "DELETE FROM reservations WHERE reservation_id = "+reservationID;
+            int affectedRows = statement.executeUpdate(query);
+            if(affectedRows > 0){
+                System.out.println("Reservation Deleted Successfully");
+            }else{
+                System.out.println("Reservation deletion failed.");
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
     private static void updateReservation(Connection connection, Scanner in, Statement statement) {
         try{
             System.out.print("Enter reservation ID to update: ");
@@ -56,6 +81,7 @@ public class HotelManagement {
             in.nextLine(); // Consume newLine character
             if(!reservationExists(connection, reservationID ,statement)){
                 System.out.println("Reservation not found for the given ID");
+                return;
             }
             System.out.println("Enter new guest name: ");
             String newGuestName = in.nextLine();
