@@ -32,6 +32,10 @@ public class HotelManagement {
                         break;
                     case 2:
                         viewReservation(connection ,statement);
+                        break;
+                    case 3:
+                        getRoomNumber(connection, in, statement);
+                        break;
                 }
             }
         }catch (SQLException e){
@@ -40,6 +44,28 @@ public class HotelManagement {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private static void getRoomNumber(Connection connection, Scanner in, Statement statement) {
+        try{
+            System.out.println("Enter Reservation ID: ");
+            int reservationID = in.nextInt();
+            System.out.println("Enter Guest Name");
+            String guestName = in.next();
+            String query = "SELECT room_number FROM reservations WHERE reservation_id =" + reservationID +
+                    "AND guest_name = '" + guestName +"'";
+            try(ResultSet resultSet =statement.executeQuery(query)){
+                if(resultSet.next()){
+                    int roomNumber = resultSet.getInt("room_number");
+                    System.out.println("Room Number for Reservation ID: " + reservationID + "and Name of guest: "+ guestName
+                    + "is " + roomNumber);
+                }else{
+                    System.out.println("Reservation Not found for the given ID and guest Name.");
+                }
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void viewReservation(Connection connection, Statement statement) {
