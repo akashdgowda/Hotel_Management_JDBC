@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 
 public class HotelManagement {
@@ -33,6 +30,8 @@ public class HotelManagement {
                     case 1:
                         reserveRoom(connection, in, statement);
                         break;
+                    case 2:
+                        viewReservation(connection ,statement);
                 }
             }
         }catch (SQLException e){
@@ -41,6 +40,28 @@ public class HotelManagement {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private static void viewReservation(Connection connection, Statement statement) {
+        String query = "SELECT reservation_id, guest_name, room_number, contact_number, reservation_date FROM reservations";
+        try(ResultSet resultSet = statement.executeQuery(query)){
+            System.out.println("Current Reservations: ");
+            System.out.println("+----------------+---------------------+--------------+-------------------+----------------------+");
+            System.out.println("| Reservation ID |        Guest        | Room Number  | Contact Number    | Reservation Date     |");
+            System.out.println("+----------------+---------------------+--------------+-------------------+----------------------+");
+            while(resultSet.next()){
+                int reservationID = resultSet.getInt("reservation_id");
+                String guestName = resultSet.getString("guest_name");
+                int roomNumber = resultSet.getInt("room_number");
+                String contactNumber = resultSet.getString("contact_number");
+                String reservationDate = resultSet.getTime("reservation_date").toString();
+
+                System.out.printf("| %-14d | %-17s | -%12d | -%17s | %-20s |\n",
+                        reservationID, guestName,roomNumber,contactNumber,reservationDate);
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void reserveRoom(Connection connection, Scanner in, Statement statement) {
