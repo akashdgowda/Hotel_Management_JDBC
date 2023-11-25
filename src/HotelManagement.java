@@ -139,13 +139,12 @@ public class HotelManagement {
             int reservationID = in.nextInt();
             System.out.println("Enter Guest Name");
             String guestName = in.next();
-            String query = "SELECT room_number FROM reservations WHERE reservation_id =" + reservationID +
-                    "AND guest_name = '" + guestName +"'";
+            String query = "SELECT room_number FROM reservations WHERE reservation_id = "+reservationID+" AND guest_name ='"+guestName+"'";
             try(ResultSet resultSet =statement.executeQuery(query)){
                 if(resultSet.next()){
                     int roomNumber = resultSet.getInt("room_number");
                     System.out.println("Room Number for Reservation ID: " + reservationID + "and Name of guest: "+ guestName
-                    + "is " + roomNumber);
+                    + "The room number is  " + roomNumber);
                 }else{
                     System.out.println("Reservation Not found for the given ID and guest Name.");
                 }
@@ -169,7 +168,7 @@ public class HotelManagement {
                 String contactNumber = resultSet.getString("contact_number");
                 String reservationDate = resultSet.getTime("reservation_date").toString();
 
-                System.out.printf("| %-14d | %-17s | -%12d | -%17s | %-20s |\n",
+                System.out.printf("| %-14d | %-19s | %-13d | %-15s | %-20s |\n",
                         reservationID, guestName,roomNumber,contactNumber,reservationDate);
             }
         }catch(SQLException e){
