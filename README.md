@@ -8,7 +8,7 @@ This is a simple Hotel Management System implemented in Java using JDBC to inter
 - MySQL Connector/J library in the classpath
 
 ## Setup
-1. Clone the repository: `git clone https://github.com/yourUsername/Hotel_Management_JDBC.git`
+1. Clone the repository: `git clone https://github.com/akashdgowda/Hotel_Management_JDBC.git`
 2. Open the project in your preferred Java IDE.
 3. Make sure to have the MySQL Connector/J library in your classpath.
 4. Update the database connection details in `HotelManagement.java`:
